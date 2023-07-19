@@ -2,6 +2,7 @@ plugins {
     kotlin("multiplatform")
     id("com.android.library")
     id("org.jetbrains.compose")
+    id("com.squareup.sqldelight")
     id("dev.icerock.mobile.multiplatform-resources")
 }
 
@@ -48,6 +49,10 @@ kotlin {
                 implementation(compose.materialIconsExtended)
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
+
+                implementation("com.squareup.sqldelight:runtime:1.5.5")
+                implementation("com.squareup.sqldelight:coroutines-extensions:1.5.5")
+                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
             }
         }
         val commonTest by getting {
@@ -57,6 +62,7 @@ kotlin {
         }
         val androidMain by getting {
             dependencies{
+                implementation("com.squareup.sqldelight:android-driver:1.5.5")
                 implementation("androidx.appcompat:appcompat:1.6.1")
                 implementation("androidx.activity:activity-compose:1.7.2")
             }
@@ -65,6 +71,9 @@ kotlin {
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting
         val iosMain by creating {
+            dependencies{
+                implementation("com.squareup.sqldelight:native-driver:1.5.5")
+            }
             dependsOn(commonMain) //make commonMain a dependency of iosMain
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
@@ -95,6 +104,14 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 }
+
+sqldelight{
+    database("ContactsDatabase"){
+        packageName = "com.example.kmmphillippcontactsproject"
+        sourceFolders = listOf("sqldelight")
+    }
+}
+
 
 dependencies{
     implementation("androidx.core:core:1.10.1")
