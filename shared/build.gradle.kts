@@ -115,7 +115,7 @@ android {
 }
 
 sqldelight {
-    database("ContactsDatabase") {
+    database("ContactDatabase") {
         packageName = "com.example.kmmphillippcontactsproject"
         sourceFolders = listOf("sqldelight")
     }
