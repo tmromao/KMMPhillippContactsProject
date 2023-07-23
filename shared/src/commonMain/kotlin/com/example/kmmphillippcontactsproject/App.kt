@@ -23,7 +23,7 @@ fun App(
         dynamicColor = dynamicColor
     ) {
         val viewModel = getViewModel(
-            key = "contact-list-scree",
+            key = "contact-list-screen-vm",
             factory = viewModelFactory {
                 ContactListViewModel()
             }
