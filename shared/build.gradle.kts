@@ -17,12 +17,11 @@ kotlin {
         }
     }
 
-    targets.withType(org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget::class.java).all {
+  /*  targets.withType(org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget::class.java).all {
         binaries.withType(org.jetbrains.kotlin.gradle.plugin.mpp.Framework::class.java).all {
             export("dev.icerock.moko:mvvm-core:0.16.1")
-
         }
-    }
+    }*/
 
     listOf(
         iosX64(),
@@ -31,9 +30,11 @@ kotlin {
     ).forEach {
         it.binaries.framework {
             baseName = "shared"
-            export("dev.icerock.moko:resources:0.23.0")
-            export("dev.icerock.moko:graphics:0.9.0")
             isStatic = true
+            export("dev.icerock.moko:mvvm-core:0.16.1")
+            //export("dev.icerock.moko:resources:0.23.0")
+            //export("dev.icerock.moko:graphics:0.9.0")
+
         }
     }
 
@@ -51,6 +52,7 @@ kotlin {
                 implementation(compose.components.resources)
 
                 api("dev.icerock.moko:resources:0.23.0")
+
                 api("dev.icerock.moko:mvvm-core:0.16.1")
                 api("dev.icerock.moko:mvvm-compose:0.16.1")
                 api("dev.icerock.moko:mvvm-flow:0.16.1")
@@ -82,9 +84,9 @@ kotlin {
                 implementation("com.squareup.sqldelight:native-driver:1.5.5")
             }
             //dependsOn(commonMain) //make commonMain a dependency of iosMain
-            iosX64Main.dependsOn(this)
-            iosArm64Main.dependsOn(this)
-            iosSimulatorArm64Main.dependsOn(this)
+            //iosX64Main.dependsOn(this)
+            //iosArm64Main.dependsOn(this)
+            //iosSimulatorArm64Main.dependsOn(this)
         }
         val iosX64Test by getting
         val iosArm64Test by getting
