@@ -1,6 +1,5 @@
 package com.example.kmmphillippcontactsproject.di
 
-import android.content.Context
 import com.example.kmmphillippcontactsproject.ContactDatabase
 import com.example.kmmphillippcontactsproject.contacts.data.SqlDelightContactDataSource
 import com.example.kmmphillippcontactsproject.contacts.domain.ContactDataSource
