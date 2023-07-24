@@ -22,11 +22,8 @@ class ContactListViewModel(
     private val contactDataSource: ContactDataSource,
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(
-        ContactListState(
-            contacts = contacts
-        )
-    )
+    private val _state = MutableStateFlow(ContactListState())
+
     val state = combine(
         _state,
         contactDataSource.getContacts(),
@@ -164,7 +161,7 @@ class ContactListViewModel(
                             contactDataSource.insertContact(contact)
                             delay(300L) // Animation delay
                         }
-                    }else{
+                    } else {
                         _state.update {
                             it.copy(
                                 firstNameError = result.firstNameError,
@@ -185,6 +182,7 @@ class ContactListViewModel(
                     )
                 }
             }
+
             else -> Unit
         }
     }
@@ -199,3 +197,4 @@ class ContactListViewModel(
             photoBytes = null
         )
     }
+}

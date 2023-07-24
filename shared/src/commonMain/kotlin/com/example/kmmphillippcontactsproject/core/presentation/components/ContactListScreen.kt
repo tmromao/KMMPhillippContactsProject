@@ -51,7 +51,7 @@ fun ContactListScreen(
             modifier = Modifier.fillMaxSize(),
             contentPadding = PaddingValues(vertical = 16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
-        ){
+        ) {
             item {
                 Text(
                     text = "My Contact (${state.contacts.size})",
@@ -74,8 +74,13 @@ fun ContactListScreen(
                 )
             }
         }
-
-
     }
+
+    AddContactSheet(
+        state = state,
+        newContact = newContact,
+        isOpen = state.isAddContactSheetOpen,
+        onEvent = onEvent
+    )
 
 }
