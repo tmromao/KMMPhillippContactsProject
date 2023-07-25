@@ -2,10 +2,10 @@ package com.example.kmmphillippcontactsproject.core.presentation
 
 import android.app.Activity
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
-import androidx.core.view.KeyEventDispatcher.Component
 
 actual class ImagePicker(
     private val activity: ComponentActivity,
@@ -13,17 +13,18 @@ actual class ImagePicker(
     private lateinit var getContent: ActivityResultLauncher<String>
 
     @Composable
-    actual fun registerPicker(onImagePicked: (ByteArray) -> Unit){
-     getContent = activity.registerForActivityResult(
-         ActivityResultContracts.GetContent()
-     )   { uri ->
-         uri?.let {
-             activity.contentResolver.openInputStream(uri)?.use {
-                 onImagePicked(it.readBytes())
-             }
-         }
+    actual fun registerPicker(onImagePicked: (ByteArray) -> Unit) {
+        //getContent = activity.registerForActivityResult( <- Incorrect. Explained in the video.
+        getContent = rememberLauncherForActivityResult(
+            ActivityResultContracts.GetContent()
+        ) { uri ->
+            uri?.let {
+                activity.contentResolver.openInputStream(uri)?.use {
+                    onImagePicked(it.readBytes())
+                }
+            }
 
-     }
+        }
 
     }
 
